@@ -1,5 +1,6 @@
 import typing as t
 
+import typing as t
 class DitSeries:
     """ """
 
@@ -9,6 +10,8 @@ class DitSeries:
         - le contenu de la colonne sous forme de Dictionnaire
         - La clé du Dictionnaire est un entier
         - La valeur du Dictionnaire est de n'importe quel type"""
+        self.name = name
+        self.data = data
 
     def __mul__(self, other: int) -> "DitSeries":
         """ Implementation de l'opération de multiplication.
@@ -16,6 +19,10 @@ class DitSeries:
         - La valeur renvoyée est de type DitSeries
         - Chaque élément de la série est multiplié par l'argument
         """
+        for i in range(len(self.data)):
+          self.data[i] = self.data[i] * other
+        return DitSeries(self.name, self.data)
+        
 
     def __div__(self, other: int) -> "DitSeries":
         """ Implementation de l'opération de division.
@@ -23,16 +30,29 @@ class DitSeries:
         - La valeur renvoyée est de type DitSeries
         - Chaque élément de la série est divisé par l'argument
         """
+        for i in range(len(self.data)):
+            self.data[i] = (self.data[i] / other) if other != 0 else 0
+        return DitSeries(self.name, self.data)
+
 
     def __sub__(self, other: int) -> "DitSeries":
         """Soustraction """
+        for i in range(len(self.data)):
+            self.data[i] = self.data[i] - other
+        return DitSeries(self.name, self.data)
 
 
     def __add__(self, other: int) -> "DitSeries":
         """Addition"""
+        for i in range(len(self.data)):
+            self.data[i] = self.data[i] + other
+        return DitSeries(self.name, self.data)
 
     def __gt__(self, other: int) -> "DitSeries":
         """Comparaison (supérieur) """
+        for i in range(len(self.data)):
+            self.data[i] = True if self.data[i] > other else False
+        return DitSeries(self.name, self.data)
 
     def __getitem__(self, key: "DitSeries") -> "DitSeries":
         """ """
@@ -40,6 +60,7 @@ class DitSeries:
     def __repr__(self) -> str:
         """ Affiche une representation de l'objet DitSeries. """
         return f"<DitSeries: {self.name} {self.data}>"
+
 
 
 class DitDataFrame:
